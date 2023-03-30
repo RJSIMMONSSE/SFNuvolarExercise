@@ -1,0 +1,22 @@
+.arvDepClass{
+    font-size: 45px;
+    color: #2978bd;
+}
+
+.distanceClass{
+    font-size: 20px;
+}
+
+.tdClass{
+    text-align: center !important;
+    width: 33%;
+}
+
+table {
+    margin: 0 auto; 
+}
+
+.newRecord{
+    width: 35%;
+    margin: auto;  
+}

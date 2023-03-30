@@ -1,0 +1,57 @@
+<template>  
+    <lightning-card  title="Flight Details">
+        <lightning-button label="New" slot="actions" onclick={createNewFlight}></lightning-button>
+        
+        <!-- Create new flight record  -->
+        <div class="newRecord">
+            <template if:true={isNewFlight}>               
+                <lightning-record-form
+                    object-api-name={flightObject}
+                    fields={Objectfields}                    
+                    onsuccess={handleFlightCreated}>
+                </lightning-record-form>
+            </template>
+        </div>        
+
+        <!-- Display info of the flight -->
+        <template if:true={isFlightInfo}>
+           <table style="width:80%">
+                <tr>
+                    <td class="tdClass">
+                        <div style="font-size: 18px;">
+                            {label.depature}
+                        </div>
+                        <div class="arvDepClass">
+                             {departureAirportCode}
+                        </div>
+                        <div style="font-size: 10px;">
+                            {departureAirportName}
+                        </div>
+                    </td>
+                    <td class="tdClass">
+                        <div>
+                            {label.distance}
+                        </div>
+                        <div class="distanceClass">
+                            {distance} KM
+                        </div>
+                    </td>
+                    <td class="tdClass">
+                        <div style="font-size: 18px;">
+                            {label.arrival}
+                        </div>
+                        <div class="arvDepClass">
+                            {arrivalAirportCode}
+                        </div>
+                        <div style="font-size: 10px;">
+                            {arrivalAirportName}
+                        </div>
+                    </td>
+                </tr>
+           </table>
+        </template>
+
+        <!-- Footer -->
+        <p slot="footer">Flight Information {year} by Nuvolar</p>
+    </lightning-card>
+</template>
