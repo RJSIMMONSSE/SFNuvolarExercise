@@ -41,8 +41,14 @@ trigger Flight_AI_AU on Flight__c (after insert, after update) {
         }
 
         if(flightsToUpdateList.size() > 0){
+            try {
 
-            update flightsToUpdateList;
+                update flightsToUpdateList;
+            } 
+            catch (Exception e) {
+                String errorMsg = 'Error at Line : '+ e.getLineNumber() + ' - type : ' + e.getTypeName() + ' - error : ' + e.getMessage();
+                System.debug('#Erro on update: '+ errorMsg);
+            }  
         }  
     }  
 }
