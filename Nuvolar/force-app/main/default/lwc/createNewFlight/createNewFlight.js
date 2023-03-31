@@ -1,3 +1,9 @@
+/**
+ * custome LWC for create and display flight records.
+ * 
+ * @author Richard J Simmons
+ * @since Date 30/03/2023.
+ */
 import { LightningElement, track, api } from 'lwc';
 import FLIGHT_OBJECT from '@salesforce/schema/Flight__c';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -74,6 +80,7 @@ export default class CreateNewFlight extends LightningElement {
                     message: err,
                     variant: 'error',
                 });
+                this.dispatchEvent(evt);
             });
     }
 }
