@@ -10,45 +10,15 @@
 trigger Flight_AI_AU on Flight__c (after insert, after update) {
 
     if(System.Trigger.IsAfter){
-
-        List<Flight__c> flightsToUpdateList = new List<Flight__c>();
         
         if(System.Trigger.isInsert) {           
             
-            for (Flight__c flight : System.Trigger.new) {
-                
-                if(flight.Distance_KM__c == null){
-
-                    Flight__c flightToUpdate = FlightTriggerHandler.updateFlightDistance(flight);
-                    flightsToUpdateList.add(flightToUpdate);
-                }
-            }          
+            FlightTriggerHandler.afterInsertFlight(Trigger.new);
         }
 
         if(System.Trigger.isUpdate){
 
-            for (Flight__c flight:  System.Trigger.new) {
-
-                Flight__c flightOld = Trigger.oldMap.get(flight.Id);
-
-                if( flight.Arrival_Airport__c != flightOld.Arrival_Airport__c || 
-                    flight.Departure_Airport__c != flightOld.Departure_Airport__c) {
-
-                        Flight__c flightToUpdate = FlightTriggerHandler.updateFlightDistance(flight);
-                        flightsToUpdateList.add(flightToUpdate);
-                }
-            }  
+            FlightTriggerHandler.afterUpdateFlight(Trigger.new,  Trigger.oldMap);           
         }
-
-        if(flightsToUpdateList.size() > 0){
-            try {
-
-                update flightsToUpdateList;
-            } 
-            catch (Exception e) {
-                String errorMsg = 'Error at Line : '+ e.getLineNumber() + ' - type : ' + e.getTypeName() + ' - error : ' + e.getMessage();
-                System.debug('#Erro on update: '+ errorMsg);
-            }  
-        }  
     }  
 }
